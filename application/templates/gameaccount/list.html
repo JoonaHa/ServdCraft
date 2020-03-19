@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<table>
+    <tr>
+        <th>Username</th>
+        <th>Uuid</th>
+        <th></th>
+    </tr>
+    {% for account in gameaccounts %}
+    <tr>
+        <td>{{ account.gametag }}</td>
+        <td>{{ account.uuid }}</td>
+        <td>
+            <a href="{{ url_for('gameaccount_updateform', account_id= account.id) }}"> Edit</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

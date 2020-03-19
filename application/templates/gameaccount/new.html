@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<form method="POST" action="{{ url_for('gameaccount_create') }}">
+    <label for="gametag">In game username:</label><br>
+    <input type="text" name="gametag"/><br>
+    <label for="uuid">Or in game uuid:</label><br>
+    <input type="text" name="uuid" /><br>
+    <input type="submit" value="Add a new in game account" />
+</form>
+{% endblock %}
