@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>ServdCraft</title>
-  </head>
 
-  <body>
-    {% block body %}
-      <p>
-        Content.
-      </p>
-    {% endblock %}
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title>ServdCraft</title>
+</head>
+
+<body>
+  <ul>
+    <li><a href="{{ url_for('gameaccount_index') }}">List your in game Accounts</a></li>
+    <li><a href="{{ url_for('gameaccount_form') }}">Add new in game account</a></li>
+  </ul>
+
+  {% block body %} 
+  <p>
+    Content.
+  </p>
+  {% endblock %}
+</body>
+
 </html>
