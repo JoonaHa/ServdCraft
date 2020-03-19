@@ -5,7 +5,7 @@ from application.models import User, GameAccount
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return redirect(url_for("gameaccount_index"))
 
 
 @app.route("/game_accounts", methods=["GET"])
@@ -31,6 +31,7 @@ def gameaccount_update(account_id):
     account.gametag = request.form.get("gametag")
     account.uuid = request.form.get("uuid")
     db.session().commit()
+    return redirect(url_for("gameaccount_index"))
 
 
 @app.route("/game_account/", methods=["POST"])
