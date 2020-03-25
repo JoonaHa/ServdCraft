@@ -2,10 +2,43 @@
 
 {% block body %}
 <form method="POST" action="{{ url_for('gameaccount_create') }}">
-    <label for="gametag">In game username:</label><br>
-    <input type="text" name="gametag"/><br>
-    <label for="uuid">Or in game uuid:</label><br>
-    <input type="text" name="uuid" /><br>
-    <input type="submit" value="Add a new in game account" />
+
+
+    <table>
+        <tr>
+            <td>
+                {{ form.gametag.label }}
+            </td>
+            <td>
+                {{ form.gametag }}
+            </td>
+            <td>
+                <ul>
+                    {% for error in form.gametag.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ form.uuid.label }}
+            </td>
+            <td>
+                {{ form.uuid }}
+            </td>
+            <td>
+                <ul>
+                    {% for error in form.uuid.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+
+        <tr>
+            <td colspan="3">
+                <input type="submit" value="Add a new in game account" />
+            </td>
+        </tr>
 </form>
 {% endblock %}

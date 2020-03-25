@@ -1,6 +1,7 @@
 from flask import render_template, request, redirect, url_for
 from application import app, db
 from application.models import User, GameAccount
+from application.tasks.forms import GameAccountForm
 
 
 @app.route("/")
@@ -15,7 +16,7 @@ def gameaccount_index():
 
 @app.route("/game_accounts/new/")
 def gameaccount_form():
-    return render_template("gameaccount/new.html")
+    return render_template("gameaccount/new.html", form=GameAccountForm())
 
 
 @app.route("/game_accounts/<account_id>/", methods=["GET"])
@@ -37,12 +38,18 @@ def gameaccount_update(account_id):
 @app.route("/game_account/", methods=["POST"])
 def gameaccount_create():
 
+    form = GameAccountForm(request.form)
+    
+    if not form.validate():
+        return render_template("gameaccount/new.html", form = form)
+    
+    
     user = User.query.filter_by(username ="anonymous").first()
     if user is None:
         user = User("anonymous", "anonymous", "test@example.com", password="1234")
         db.session().add(user)
 
-    gameaccount = GameAccount(user, gametag= request.form.get("gametag"), uuid = request.form.get("uuid"))
+    gameaccount = GameAccount(user, gametag= form.gametag.data, uuid = form.uuid.data)
 
     db.session().add(gameaccount)
     db.session().commit()
