@@ -16,7 +16,7 @@ class User(db.Model):
     password_hash = db.Column(db.String(144), nullable=False)
     game_accounts = db.relationship("GameAccount", back_populates="user")
 
-    def __init__(self, name, username, email, password):
+    def __init__(self, name, username, password):
         self.name = name
         self.username = username
         self.set_password(password)

@@ -38,3 +38,10 @@ try:
     db.create_all()
 except:
     pass
+
+if os.environ.get("HEROKU"):
+    user = User.query.filter_by(username="test_account").first()
+    if user is None:
+        user = User("test_account","test","1234")
+        db.session().add(user)
+        db.session().commit()
