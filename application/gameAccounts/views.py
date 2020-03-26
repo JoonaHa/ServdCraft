@@ -61,7 +61,7 @@ def gameaccount_create():
     if not form.validate():
         return render_template("gameAccount/new.html", form=form)
 
-    user=User.query.filter_by(user_id=current_user.id).first()
+    user=User.query.filter_by(id=current_user.id).first()
 
     gameaccount=GameAccount(
         user, gametag=form.gametag.data, uuid=form.uuid.data)

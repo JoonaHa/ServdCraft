@@ -9,7 +9,6 @@ if os.environ.get("HEROKU"):
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 else:
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///servedCraftTest.db"
-    app.config["SQLALCHEMY_ECHO"] = True
 
 db = SQLAlchemy(app)
 
@@ -39,9 +38,8 @@ try:
 except:
     pass
 
-if os.environ.get("HEROKU"):
-    user = User.query.filter_by(username="test_account").first()
-    if user is None:
-        user = User("test_account","test","1234")
-        db.session().add(user)
-        db.session().commit()
+user = User.query.filter_by(username="test").first()
+if user is None:
+    user = User("test_account","test","1234")
+    db.session().add(user)
+    db.session().commit()
