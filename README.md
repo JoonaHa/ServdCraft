@@ -19,6 +19,9 @@ Crude concept database diagram for the basic logical structures. Other tables wi
 * [Heroku](https://tsoha-servdcraft.herokuapp.com/)
 * [User stories](documentation/userstories.md)
 
+### Week 3
+* Test credentials **username:** test **password:** 1234
+
 
 
 
