@@ -7,12 +7,23 @@
 </head>
 
 <body>
+  {% if current_user.is_authenticated %}
+  <p>
+    Logged in as {{ current_user.name }}
+  </p>
+  <a href="{{ url_for('auth_logout') }}">Logout</a>
+  {% else %}
+  <a href="{{ url_for('auth_login') }}">Login</a>
+  {% endif %}
+
+
+
   <ul>
     <li><a href="{{ url_for('gameaccount_index') }}">List your in game Accounts</a></li>
     <li><a href="{{ url_for('gameaccount_form') }}">Add new in game account</a></li>
   </ul>
 
-  {% block body %} 
+  {% block body %}
   <p>
     Content.
   </p>
