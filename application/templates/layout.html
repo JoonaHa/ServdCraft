@@ -13,6 +13,7 @@
   </p>
   <a href="{{ url_for('auth_logout') }}">Logout</a>
   {% else %}
+  <a href="{{ url_for('auth_register') }}">Register</a>
   <a href="{{ url_for('auth_login') }}">Login</a>
   {% endif %}
 
