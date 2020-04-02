@@ -69,4 +69,4 @@ def gameaccount_create():
     db.session().add(gameaccount)
     db.session().commit()
 
-    return redirect(url_for("gameaccount_index"))
+    return redirect(url_for("gameaccount_updateform,", account_id=gameaccount.id))

@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<form method="POST" action="{{ url_for('server_create') }}">
+
+
+    <table>
+        <tr>
+            <td>
+                {{ form.name.label }}
+            </td>
+            <td>
+                {{ form.name }}
+            </td>
+            <td>
+                <ul>
+                    {% for error in form.name.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ form.description.label }}
+            </td>
+            <td>
+                {{ form.description}}
+            </td>
+            <td>
+                <ul>
+                    {% for error in form.description.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ form.status.label }}
+            </td>
+            <td>
+                <!--TODO ADD {{ form.status.label }}-->
+            </td>
+            <td>
+                <ul>
+                    {% for error in form.status.errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="3">
+                <input type="submit" value="Add a new in game account" />
+            </td>
+        </tr>
+</form>
+{% endblock %}

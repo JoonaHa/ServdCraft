@@ -12,6 +12,7 @@ class User(db.Model):
                               onupdate=db.func.current_timestamp())
 
     name = db.Column(db.String(144), nullable=False)
+    isAdmin = db.Column(db.Boolean, default=False)
     username = db.Column(db.String(144), nullable=False)
     password_hash = db.Column(db.String(144), nullable=False)
     game_accounts = db.relationship("GameAccount", back_populates="user")

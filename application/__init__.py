@@ -21,7 +21,14 @@ from application.auth import views
 from application.gameAccounts import models
 from application.gameAccounts import views
 
+from application.servers import models
+from application.servers import views
+
 from application.auth.models import User
+from application.gameAccounts.models import GameAccount
+
+
+
 from flask_login import LoginManager
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -41,5 +48,12 @@ except:
 user = User.query.filter_by(username="test").first()
 if user is None:
     user = User("test_account","test","1234")
+    user.isAdmin = True
     db.session().add(user)
     db.session().commit()
+    account = GameAccount(user,"xxx_test_xx", "1234")
+    db.session().add(account)
+    db.session().commit()
+
+
+

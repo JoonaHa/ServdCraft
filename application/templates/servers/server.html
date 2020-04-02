@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h3> {{server.name}}</h3>
+<label for="Description:">Description:</label><br>
+<textarea> readonly>
+        {{server.description}}
+    </textarea>
+<br>
+{% endblock %}
