@@ -26,6 +26,7 @@ from application.servers import views
 
 from application.auth.models import User
 from application.gameAccounts.models import GameAccount
+from flask_login import current_user
 
 
 
@@ -54,6 +55,26 @@ if user is None:
     account = GameAccount(user,"xxx_test_xx", "1234")
     db.session().add(account)
     db.session().commit()
+
+
+# roles in login_required
+from functools import wraps
+
+def login_required(_func=None, *, role="ANY"):
+    def wrapper(func):
+        @wraps(func)
+        def decorated_view(*args, **kwargs):
+            if not (current_user and current_user.is_authenticated):
+                return login_manager.unauthorized()
+
+            acceptable_roles = set(("ANY", *current_user.roles()))
+
+            if role not in acceptable_roles:
+                return login_manager.unauthorized()
+
+            return func(*args, **kwargs)
+        return decorated_view
+    return wrapper if _func is None else wrapper(_func)
 
 
 
