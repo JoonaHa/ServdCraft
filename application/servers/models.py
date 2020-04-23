@@ -4,9 +4,9 @@ from enum import Enum
 
 
 class Status(Enum):
-    online = 1
-    offline = -1
-    updating = 0
+    Online = 1
+    Offline = -1
+    Updating = 0
 
 
 class Server(db.Model):
@@ -16,12 +16,12 @@ class Server(db.Model):
                               onupdate=db.func.current_timestamp())
     name = db.Column(db.String(144), nullable=False)
     description = db.Column(db.String(500), nullable=True)
-    status = db.Column(db.Enum(Status), default=Status.offline)
+    status = db.Column(db.Enum(Status), default=Status.Offline)
 
     game_accounts = db.relationship(
         "GameAccountServer", back_populates="server")
 
-    def __init__(self, name, description="", status=Status.offline):
+    def __init__(self, name, description="", status=Status.Offline):
         self.name = name
         self.description = description
 

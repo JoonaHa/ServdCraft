@@ -61,12 +61,13 @@ def gameaccount_create():
     if not form.validate():
         return render_template("gameAccount/new.html", form=form)
 
-    user=User.query.filter_by(id=current_user.id).first()
+    user=User.query.get(current_user.get_id())
 
     gameaccount=GameAccount(
         user, gametag=form.gametag.data, uuid=form.uuid.data)
 
     db.session().add(gameaccount)
     db.session().commit()
+    gameaccount=GameAccount.query.filter_by(gametag=gameaccount.gametag, uuid = gameaccount.uuid).first()
 
-    return redirect(url_for("gameaccount_updateform,", account_id=gameaccount.id))
+    return render_template("gameAccount/account.html", account=gameaccount)
