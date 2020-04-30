@@ -3,8 +3,8 @@ from wtforms import StringField, validators
 
 
 class GameAccountForm(FlaskForm):
-    gametag = StringField("In game username:", [validators.Optional(), validators.Length(min=2)])
-    uuid = StringField("Or in game uuid:", [validators.Optional(),validators.Length(min=2)])
+    gametag = StringField("In game username:", [validators.Optional(), validators.Length(min=2, max=144)])
+    uuid = StringField("Or in game uuid:", [validators.Optional(),validators.Length(min=2, max=144)])
 
     def validate(self):
         if not FlaskForm.validate(self):

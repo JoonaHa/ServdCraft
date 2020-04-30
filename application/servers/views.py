@@ -8,7 +8,6 @@ from application.servers.models import Server, Status, GameAccountServer
 from application.servers.forms import ServerForm, JoinForm, EditForm
 from application.gameAccounts.models import GameAccount
 
-
 @app.route("/allservers", methods=["GET"])
 def server_index():
     if not current_user.is_authenticated:
@@ -48,7 +47,10 @@ def server_form():
     if not user.isAdmin:
         return redirect(url_for("auth_login"))
     else:
-        return render_template("servers/new.html", statuses=Status.__members__.items(), form=ServerForm())
+
+        form = ServerForm()
+        form.status.choices = get_choises()
+        return render_template("servers/new.html", statuses=Status.__members__.items(), form=form)
 
 
 @login_required
@@ -89,6 +91,7 @@ def server_create():
 
     else:
         form = ServerForm(request.form)
+        form.status.choices = get_choises()
         if not form.validate():
             return render_template("servers/new.html", form=form)
         user = User.query.get(current_user.id)
@@ -97,9 +100,9 @@ def server_create():
 
         db.session().add(server)
         db.session().commit()
-    server = Server.query.filter_by(name=server.name).first()
+        server = Server.query.filter_by(name=server.name).first()
 
-    return render_template("servers/server.html", server=server)
+        return redirect(url_for("server", server_id=server.id))
 
 
 @app.route("/servers/<server_id>/join", methods=["POST"])
@@ -123,7 +126,7 @@ def server_join(server_id):
 
         db.session().add(gas)
         db.session().commit()
-        return redirect (url_for("server_joined"))
+        return redirect(url_for("server_joined"))
     else:
         return redirect(url_for("server, server_id"))
 
@@ -171,3 +174,9 @@ def server_update(server_id):
             server.description = form.description.data
             db.session().commit()
             return redirect(url_for("server_index"))
+
+
+def get_choises():
+    statuses = [(member)for name, member in Status.__members__.items()]
+    choices = [(status.value, status.name)for status in statuses]
+    return choices

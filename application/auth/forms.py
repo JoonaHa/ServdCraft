@@ -8,9 +8,9 @@ class LoginForm(FlaskForm):
     password = PasswordField("Password")
 
 class RegisterForm(FlaskForm):
-    name = StringField("Name",[validators.Length(min=2)])
-    username = StringField("Username",[validators.Length(min=2)])
-    password = PasswordField("Password",[validators.Length(min=8)])
+    name = StringField("Name",[validators.Length(min=2, max=144)])
+    username = StringField("Username",[validators.Length(min=2, max=144) ])
+    password = PasswordField("Password",[validators.Length(min=8, max=144)])
 
     def validate(self):
         if not FlaskForm.validate(self):
