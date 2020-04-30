@@ -16,7 +16,7 @@ def gameaccount_index():
     if user is None:
         return redirect(url_for("auth_login"))
     else:    
-        return render_template("gameAccount/list.html", gameaccounts=GameAccount.query.filter_by(user_id=current_user.id))
+        return render_template("gameAccount/list.html", gameaccounts=list(GameAccount.query.filter_by(user_id=current_user.id)))
 
 
 @login_required
@@ -38,7 +38,7 @@ def gameaccount_updateform(account_id):
 
 
 @login_required
-@app.route("/game_accounts/<account_id>/", methods=["POST"])
+@app.route("/game_accounts/<account_id>/edit", methods=["POST"])
 def gameaccount_update(account_id):
 
     account=GameAccount.query.get(account_id)
@@ -51,6 +51,17 @@ def gameaccount_update(account_id):
     else:
         return
 
+@login_required
+@app.route("/game_accounts/<account_id>/delete", methods=["POST"])
+def gameaccount_delete(account_id):
+
+    account=GameAccount.query.get(account_id)
+    if account and account.user_id is current_user.id:
+
+        db.session.delete(account)
+        db.session().commit()
+
+    return redirect(url_for("gameaccount_index"))
 
 @login_required
 @app.route("/game_account/", methods=["POST"])

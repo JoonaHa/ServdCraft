@@ -1,16 +1,40 @@
 {% extends "layout.html" %}
 
 {% block body %}
+{%if joined%}
+<h3>Joined/Owned servers</h3>
+{%else%}
+<h3>All servers</h3>
+{%endif%}
+{% if servers |length > 0 %}
 <table>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Creator</th>
+    </tr>
     {% for server in servers %}
     <tr>
-        <td>{{ server.name }}</td>
-        <td>{{ server.description }}</td>
-        <td>{{ server.status}}</td>
         <td>
-            <a href="{{ url_for('gameaccount_updateform', account_id= account.id) }}"> Edit</a>
+            <a href="{{ url_for('server', server_id= server.id) }}"> {{ server.name }}</a>
+        </td>
+        <td>{{ server.description }}</td>
+        <td>{{ server.status.name }}</td>
+        <td>{{ server.creator.username }}</td>
+        {% if user.id is sameas server.creator_id %}
+        <td>
+            <a href="{{ url_for('server_update', server_id= server.id) }}"> Edit/Delete</a>
         </td>
     </tr>
+    {%endif%}
     {% endfor %}
 </table>
+{% if joined and servers |length < 0 %}
+<h5>You haven't joined any servers</h5>
+{% endif %}
+{% else %}
+<h5>There are no servers</h5>
+<a href="{{ url_for('server_create')}}">Create a ingame account</a>
+{% endif %}
 {% endblock %}

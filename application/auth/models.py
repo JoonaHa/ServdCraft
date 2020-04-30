@@ -16,6 +16,7 @@ class User(db.Model):
     username = db.Column(db.String(144), nullable=False)
     password_hash = db.Column(db.String(144), nullable=False)
     game_accounts = db.relationship("GameAccount", back_populates="user")
+    ownServers =db.relationship("Server", back_populates="creator")
 
     def __init__(self, name, username, password):
         self.name = name

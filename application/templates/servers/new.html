@@ -25,7 +25,7 @@
                 {{ form.description.label }}
             </td>
             <td>
-                {{ form.description}}
+                {{ form.description(rows='4',cols='50')}}
             </td>
             <td>
                 <ul>
@@ -40,7 +40,7 @@
                 {{ form.status.label }}
             </td>
             <td>
-                    {{ form.status}}
+                    {{form.status}}
             </td>
             <td>
                 <ul>
@@ -52,8 +52,8 @@
         </tr>
 
         <tr>
-            <td colspan="3">
-                <input type="submit" value="Add a new in game account" />
+            <td>
+                <input type='submit' value='Create Server' />
             </td>
         </tr>
 </form>

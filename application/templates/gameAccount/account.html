@@ -1,11 +1,21 @@
 {% extends "layout.html" %}
 
 {% block body %}
+<div>
 <form method="POST" action="{{ url_for('gameaccount_update', account_id=account.id) }}">
     <label for="gametag">In game username:</label><br>
     <input type="text" name="gametag" value="{{account.gametag}}"/><br>
     <label for="uuid">Or in game uuid:</label><br>
     <input type="text" name="uuid" value="{{account.uuid}}"/><br>
-    <input type="submit" value="Update account information" />
+    <input type="submit" value="Update" />
 </form>
+</div>
+
+<br/>
+<div>
+<form method="POST" action="{{ url_for('gameaccount_delete', account_id=account.id) }}">
+        <input class="button" type="submit" value="Delete"/>
+</form>
+</div>
+
 {% endblock %}

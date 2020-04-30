@@ -17,12 +17,16 @@ class Server(db.Model):
     name = db.Column(db.String(144), nullable=False)
     description = db.Column(db.String(500), nullable=True)
     status = db.Column(db.Enum(Status), default=Status.Offline)
+    creator_id = db.Column(db.Integer, db.ForeignKey('account.id'))
+    creator = db.relationship("User", back_populates="ownServers")
 
     game_accounts = db.relationship(
         "GameAccountServer", back_populates="server")
 
-    def __init__(self, name, description="", status=Status.Offline):
+    def __init__(self, name, status, creator, description=""):
         self.name = name
+        self.status = status
+        self.creator_id = creator.id
         self.description = description
 
 

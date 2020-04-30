@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div>
+        <h4> {{server.name}}</h4>
+</div>
+
+<form method="POST" action="{{ url_for('server_update',server_id=server.id) }}">
+        <table>
+                <tr>
+                        <td>
+                                {{ form.description.label }}
+                        </td>
+                        <td>
+                                {{ form.description(rows='4',cols='50')}}
+                        </td>
+                        <td>
+                                <ul>
+                                        {% for error in form.description.errors %}
+                                        <li>{{ error }}</li>
+                                        {% endfor %}
+                                </ul>
+                        </td>
+                </tr>
+                <tr>
+                        <td>
+                                {{ form.status.label }}
+                        </td>
+                        <td>
+                                {{form.status}}
+                        </td>
+                        <td>
+                                <ul>
+                                        {% for error in form.status.errors %}
+                                        <li>{{ error }}</li>
+                                        {% endfor %}
+                                </ul>
+                        </td>
+                </tr>
+
+                <tr>
+                        <td>
+                                <input type='submit' value='Edit Server' />
+                        </td>
+                </tr>
+
+
+</form>
+<form method="POST" action="{{ url_for('server_delete', server_id=server.id) }}">
+        <input class="button" type="submit" value="Delete Server" />
+</form>
+</div>
+
+
+{% endblock %}
